@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Club>
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            @foreach(var club in Model)
+            {
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img class="bd-placeholder-img card-img-top" src="@club.Image" width="100%" height="225" alt="Card image cap"/>
+                        <div class="card-body">
+                            <p class="card-text">@club.Title</p>
+                            <p class="card-text">@club.Description</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a asp-controller="Club" asp-action="Detail" asp-route-id="@club.Id" type="btn btn-success" class="btn btn-sm btn-outline-secondary">View</a>
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                                    {
+                                        <div>
+                                            <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Club" asp-action="Edit" asp-route-id="@club.Id">Edit</a>
+                                            <a type="button" class="btn btn-sm btn-outline-danger" asp-controller="Club" asp-action="Delete" asp-route-id="@club.Id">Delete</a>
+                                        </div>
+                                    }
+                                    </div>
+                                <small class="text-body-secondary">@club.ClubCategory</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
